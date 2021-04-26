@@ -1,7 +1,6 @@
 module.exports = {
   root: true,
   env: {
-    browser: true,
     node: true,
   },
   extends: [
@@ -10,13 +9,14 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
+  parser: '@typescript-eslint/parser',
+  plugins: ['node', '@typescript-eslint'],
   parserOptions: {
     ecmaVersion: 2020,
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
     },
-    sourceType: 'module',
-    project: './tsconfig.json',
+    project: ['./tsconfig.json'],
   },
   rules: {
     '@typescript-eslint/no-var-requires': 0,
