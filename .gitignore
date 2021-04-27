@@ -1,5 +1,6 @@
 node_modules
 /node_modules
 .env
-
+docker-compose.yml
+mongo-init.js
 dist
