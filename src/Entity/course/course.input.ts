@@ -12,7 +12,10 @@ class LinkInput implements Partial<Link> {
 }
 
 @InputType()
-class CommentInput implements Partial<Comment> {
+export class CommentInput implements Partial<Comment> {
+  @Field(() => ID)
+  id!: string
+
   @Field()
   name!: string
 
