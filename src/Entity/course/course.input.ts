@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { InputType, Field, ID, Float } from 'type-graphql'
+import { InputType, Field, ID } from 'type-graphql'
 import { Comment, Course, Link } from './course.entity'
 
 @InputType()
