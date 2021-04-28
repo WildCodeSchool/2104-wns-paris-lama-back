@@ -10,10 +10,12 @@
     "rootDir": "./" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
     "strict": true,
+    "lib": ["esnext", "esnext.asynciterable"],
     "noImplicitAny": true,
     "declaration": true,
+    "emitDecoratorMetadata": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "{rootPathPrefix}/*": ["./src/*"]
     },
     "outDir": "dist",
     "experimentalDecorators": true
