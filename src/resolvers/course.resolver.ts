@@ -30,9 +30,12 @@ class CourseResolver {
     })
     if (data.comment && data.comment[0] && data.comment[0].rate) {
       if (course) {
+        console.log(data.comment[0].rate)
+        const s = +data.comment[0].rate
+        console.log(s)
         const rating = data.comment.reduce(
           // eslint-disable-next-line radix
-          (pre, cur) => pre + cur.rate,
+          (pre, cur) => pre + +cur.rate,
           0
         )
         course.rating = rating

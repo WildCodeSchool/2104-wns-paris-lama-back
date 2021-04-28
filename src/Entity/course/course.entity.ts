@@ -32,9 +32,9 @@ export class Comment {
   @Prop({ required: true })
   content!: string
 
-  @Field(() => Float)
+  @Field()
   @Prop({ required: true })
-  rate!: number
+  rate!: string
 }
 
 @ObjectType()
@@ -62,7 +62,7 @@ export class Course {
   @Prop({ required: false })
   comment?: Array<Comment>
 
-  @Field(() => Int)
+  @Field(() => Float)
   @Prop({ required: false, default: 0 })
   rating?: number
 

@@ -19,8 +19,8 @@ class CommentInput implements Partial<Comment> {
   @Field()
   content!: string
 
-  @Field(() => Float)
-  rate!: number
+  @Field()
+  rate!: string
 }
 
 @InputType()
