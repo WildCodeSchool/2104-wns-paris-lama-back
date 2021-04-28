@@ -1,40 +1,29 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ObjectType, Field, Int, ID, Float } from 'type-graphql'
 import {
-  Prop,
+  prop,
   getModelForClass,
   Index,
   Severity,
   setGlobalOptions,
+  Ref,
 } from '@typegoose/typegoose'
+import { Comment } from '../comments/comment.entity'
 
 setGlobalOptions({ options: { allowMixed: Severity.ALLOW } })
 
 @ObjectType()
 export class Link {
   @Field()
-  @Prop({ trim: true, required: true })
+  @prop({ trim: true, required: true })
   title!: string
 
   @Field()
-  @Prop({ required: true })
+  @prop({ required: true })
   url!: string
-}
-
-@ObjectType()
-export class Comment {
-  @Field()
-  @Prop({ trim: true, required: true })
-  name!: string
-
-  @Field()
-  @Prop({ required: true })
-  content!: string
-
-  @Field()
-  @Prop({ required: true })
-  rate!: string
 }
 
 @ObjectType()
@@ -43,27 +32,27 @@ export class Course {
   id!: string
 
   @Field()
-  @Prop({ trim: true, required: true })
+  @prop({ trim: true, required: true })
   title!: string
 
   @Field()
-  @Prop({ required: true })
+  @prop({ required: true })
   categories!: string
 
   @Field()
-  @Prop({ required: true })
+  @prop({ required: true })
   video!: string
 
   @Field(() => [Link])
-  @Prop({ required: false })
+  @prop({ required: false })
   link?: Array<Link>
 
   @Field(() => [Comment])
-  @Prop({ required: false })
-  comment?: Array<Comment>
+  @prop({ required: true, ref: Comment, default: [] })
+  public comments?: Ref<Comment>[]
 
   @Field(() => Float)
-  @Prop({ required: false, default: 0 })
+  @prop({ required: false, default: 0 })
   rating?: number
 
   @Field(() => Date)
