@@ -24,9 +24,6 @@ export class Link {
 
 @ObjectType()
 export class Comment {
-  @Field(() => ID)
-  id!: string
-
   @Field()
   @Prop({ trim: true, required: true })
   name!: string

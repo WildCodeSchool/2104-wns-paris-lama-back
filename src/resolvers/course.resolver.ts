@@ -34,16 +34,17 @@ class CourseResolver {
     if (data.comment && data.comment[0] && data.comment[0].rate) {
       if (course && course.comment) {
         course.comment.push(data.comment[0])
+
         await course.save()
         delete data.comment
-        console.log(data)
+
         course.updateOne(data)
         const rating = course.comment.reduce(
           // eslint-disable-next-line radix
           (pre, cur) => pre + +cur.rate,
           0
         )
-        course.rating = rating
+        course.rating = rating / course.comment.length
       }
     }
     return course
