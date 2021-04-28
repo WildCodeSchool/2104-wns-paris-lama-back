@@ -5,12 +5,14 @@
 
 type Comment {
   content: String!
+  id: ID!
   name: String!
   rate: String!
 }
 
 input CommentInput {
   content: String!
+  id: ID!
   name: String!
   rate: String!
 }
