@@ -9,12 +9,13 @@ import { ApolloServer } from 'apollo-server-express'
 import connectDB from './config/db.config'
 
 import CourseResolver from './resolvers/course.resolver'
+import CommentResolver from './resolvers/comment.resolver'
 // eslint-disable-next-line prettier/prettier
 const startserver = async () => {
   config()
   connectDB()
   const schema = await buildSchema({
-    resolvers: [CourseResolver],
+    resolvers: [CourseResolver, CommentResolver],
     emitSchemaFile: true,
     validate: false,
   })

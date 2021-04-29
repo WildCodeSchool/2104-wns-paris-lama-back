@@ -5,6 +5,7 @@
 
 type Comment {
   content: String!
+  course: String!
   id: ID!
   name: String!
   rate: String!
@@ -12,6 +13,14 @@ type Comment {
 
 input CommentInput {
   content: String!
+  course: String
+  name: String!
+  rate: String!
+}
+
+input CommentUpdateInput {
+  content: String!
+  course: String
   id: ID!
   name: String!
   rate: String!
@@ -19,10 +28,10 @@ input CommentInput {
 
 type Course {
   categories: String!
-  comment: [Comment!]!
   createdAt: DateTime!
   id: ID!
   link: [Link!]!
+  localRate: Float!
   rating: Float!
   title: String!
   updatedAt: DateTime!
@@ -31,7 +40,6 @@ type Course {
 
 input CourseInput {
   categories: String!
-  comment: [CommentInput!]
   link: [LinkInput!]
   title: String!
   video: String!
@@ -39,7 +47,6 @@ input CourseInput {
 
 input CourseUpdateInput {
   categories: String
-  comment: [CommentInput!]
   id: ID!
   link: [LinkInput!]
   title: String
@@ -62,12 +69,17 @@ input LinkInput {
 }
 
 type Mutation {
+  createComment(data: CommentInput!): Comment!
   createCourse(data: CourseInput!): Course!
+  deleteComment(id: String!): Boolean!
   deleteCourse(id: String!): Boolean!
+  updateComment(data: CommentUpdateInput!): Comment!
   updateCourse(data: CourseUpdateInput!): Course!
 }
 
 type Query {
-  getCorses: [Course!]!
+  getComments(course: String!): [Comment!]!
+  getCourses: [Course!]!
+  getOneComment(_id: String!): Comment!
   getOneCourse(id: String!): Course!
 }

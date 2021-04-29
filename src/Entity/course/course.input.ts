@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { InputType, Field, ID } from 'type-graphql'
-import { Comment, Course, Link } from './course.entity'
+import { Course, Link } from './course.entity'
 
 @InputType()
 class LinkInput implements Partial<Link> {
@@ -9,21 +9,6 @@ class LinkInput implements Partial<Link> {
 
   @Field()
   url!: string
-}
-
-@InputType()
-export class CommentInput implements Partial<Comment> {
-  @Field(() => ID)
-  id!: string
-
-  @Field()
-  name!: string
-
-  @Field()
-  content!: string
-
-  @Field()
-  rate!: string
 }
 
 @InputType()
@@ -37,11 +22,11 @@ class CourseInput implements Partial<Course> {
   @Field()
   video!: string
 
+  @Field({ nullable: false })
+  description?: string
+
   @Field(() => [LinkInput], { nullable: true })
   link?: LinkInput[]
-
-  @Field(() => [CommentInput], { nullable: true })
-  comment?: CommentInput[]
 }
 
 @InputType()
@@ -49,20 +34,20 @@ export class CourseUpdateInput implements Partial<Course> {
   @Field(() => ID)
   id!: string
 
-  @Field({ nullable: true })
+  @Field({ nullable: false })
   title?: string
 
-  @Field({ nullable: true })
+  @Field({ nullable: false })
   categories?: string
 
-  @Field({ nullable: true })
+  @Field({ nullable: false })
+  description?: string
+
+  @Field({ nullable: false })
   video?: string
 
   @Field(() => [LinkInput], { nullable: true })
   link?: LinkInput[]
-
-  @Field(() => [CommentInput], { nullable: true })
-  comment?: CommentInput[]
 }
 
 export default CourseInput
