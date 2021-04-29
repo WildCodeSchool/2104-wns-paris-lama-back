@@ -29,6 +29,7 @@ input CommentUpdateInput {
 type Course {
   categories: String!
   createdAt: DateTime!
+  description: String!
   id: ID!
   link: [Link!]!
   localRate: Float!
@@ -40,6 +41,7 @@ type Course {
 
 input CourseInput {
   categories: String!
+  description: String
   link: [LinkInput!]
   title: String!
   video: String!
@@ -47,6 +49,7 @@ input CourseInput {
 
 input CourseUpdateInput {
   categories: String
+  description: String
   id: ID!
   link: [LinkInput!]
   title: String
@@ -59,11 +62,13 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type Link {
+  img: String!
   title: String!
   url: String!
 }
 
 input LinkInput {
+  img: String!
   title: String!
   url: String!
 }

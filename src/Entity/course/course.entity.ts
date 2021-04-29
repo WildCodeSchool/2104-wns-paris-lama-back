@@ -24,6 +24,10 @@ export class Link {
   @Field()
   @prop({ required: true })
   url!: string
+
+  @Field()
+  @prop({ required: true })
+  img!: string
 }
 
 @ObjectType()
