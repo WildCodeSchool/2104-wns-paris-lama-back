@@ -8,7 +8,9 @@ import { CourseModel, Course } from '../Entity/course/course.entity'
 class CourseResolver {
   @Query(() => [Course])
   async getCourses(): Promise<Course[]> {
-    return CourseModel.find()
+    const courses = CourseModel.find()
+    if (!courses) return []
+    return courses
   }
 
   @Query(() => Course, { nullable: false })

@@ -14,6 +14,13 @@ type Comment {
 input CommentInput {
   content: String!
   course: String
+  name: String!
+  rate: String!
+}
+
+input CommentUpdateInput {
+  content: String!
+  course: String
   id: ID!
   name: String!
   rate: String!
@@ -21,10 +28,10 @@ input CommentInput {
 
 type Course {
   categories: String!
-  comments: [Comment!]!
   createdAt: DateTime!
   id: ID!
   link: [Link!]!
+  localRate: Float!
   rating: Float!
   title: String!
   updatedAt: DateTime!
@@ -62,11 +69,11 @@ input LinkInput {
 }
 
 type Mutation {
-  createComment(data: CommentInput!): Course!
+  createComment(data: CommentInput!): Comment!
   createCourse(data: CourseInput!): Course!
   deleteComment(id: String!): Boolean!
   deleteCourse(id: String!): Boolean!
-  updateComment(data: CommentInput!): Comment!
+  updateComment(data: CommentUpdateInput!): Comment!
   updateCourse(data: CourseUpdateInput!): Course!
 }
 

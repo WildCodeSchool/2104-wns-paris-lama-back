@@ -40,6 +40,10 @@ export class Course {
   categories!: string
 
   @Field()
+  @prop({ required: false })
+  description?: string
+
+  @Field()
   @prop({ required: true })
   video!: string
 
@@ -47,13 +51,13 @@ export class Course {
   @prop({ required: false })
   link?: Array<Link>
 
-  @Field(() => [Comment])
-  @prop({ required: true, ref: Comment, default: [] })
-  public comments?: Ref<Comment>[]
-
   @Field(() => Float)
   @prop({ required: false, default: 0 })
   rating?: number
+
+  @Field(() => Float)
+  @prop({ required: false, default: 0 })
+  localRate?: number
 
   @Field(() => Date)
   createdAt?: Date
