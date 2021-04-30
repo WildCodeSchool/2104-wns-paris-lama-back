@@ -5,17 +5,16 @@ import colors from 'colors'
 
 const connectDB = async (): Promise<void> => {
   try {
-    const connect = await mongoose
-      .connect('mongodb://localhost:27017/lama', {
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useFindAndModify: false,
-      })
-      .catch((e) => console.log(e))
+    const uri = process.env.DB || 'mongodb://127.0.0.1:27017/lama'
+    const connect = await mongoose.connect(uri, {
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useFindAndModify: false,
+    })
     console.log(colors.bgGreen.black('DB connected'))
   } catch (error) {
-    console.log(error)
+    console.log(colors.red(error))
     process.exit(1)
   }
 }
