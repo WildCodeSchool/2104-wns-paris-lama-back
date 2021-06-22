@@ -1,0 +1,12 @@
+services:
+    server:
+            build: .
+            ports: 
+                - 8081:8080
+            command: npm start
+            volumes: 
+                - ./src/:/app/src/
+    mongodb:
+            image: mongo
+            volumes: 
+                - ./data:/data/db
