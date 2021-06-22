@@ -20,6 +20,6 @@
     "outDir": "dist",
     "experimentalDecorators": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "mongo-init.js"]
+  "include": ["src/**/*.ts", ".eslintrc.js"],
+  "exclude": ["node_modules", "mongo-init.js", "dist", "dist/**/*spec.ts"]
 }
