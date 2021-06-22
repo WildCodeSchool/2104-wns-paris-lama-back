@@ -1,12 +1,18 @@
 services:
     server:
             build: .
-            ports: 
+            ports:
                 - 8081:8080
             command: npm start
-            volumes: 
+            volumes:
                 - ./src/:/app/src/
     mongodb:
             image: mongo
-            volumes: 
+            volumes:
                 - ./data:/data/db
+    client:
+            build: ../2104-wns-paris-lama-front/
+            ports:
+                - 3000:3000
+            volumes:
+                - ./src/:/app/src/
