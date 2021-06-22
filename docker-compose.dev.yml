@@ -15,4 +15,4 @@ services:
             ports:
                 - 3000:3000
             volumes:
-                - ./src/:/app/src/
+                - ../2104-wns-paris-lama-front/src/:/app/src/
