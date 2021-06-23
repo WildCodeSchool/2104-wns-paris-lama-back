@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
 import { Resolver, Query, Arg, Mutation } from 'type-graphql'
+import { ObjectId } from 'mongoose'
 import CourseInput, { CourseUpdateInput } from '../Entity/course/course.input'
 import { CourseModel, Course } from '../Entity/course/course.entity'
 
@@ -37,7 +40,9 @@ class CourseResolver {
 
   @Mutation(() => Boolean)
   async deleteCourse(@Arg('id') id: string): Promise<boolean> {
-    await CourseModel.deleteOne({ id })
+    const _id = new ObjectId(id)
+    const deletedCourse = await CourseModel.deleteOne({ _id })
+    console.log(deletedCourse)
     return true
   }
 }

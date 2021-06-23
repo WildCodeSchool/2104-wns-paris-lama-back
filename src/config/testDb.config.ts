@@ -5,14 +5,14 @@ import colors from 'colors'
 
 const connectDB = async (): Promise<void> => {
   try {
-    const uri = process.env.DB || 'mongodb://mongodb:27017/lama'
+    const uri = process.env.DBTEST || 'mongodb://127.0.0.1:27017/lama-test'
     const connect = await mongoose.connect(uri, {
       useCreateIndex: true,
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useFindAndModify: false,
     })
-    console.log(colors.bgGreen.black('DB connected'))
+    console.log(colors.bgGreen.black('DBTEST connected'))
   } catch (error) {
     console.log(colors.red(error))
     process.exit(1)
