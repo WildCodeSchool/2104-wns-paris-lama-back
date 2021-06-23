@@ -3,7 +3,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
 import { Resolver, Query, Arg, Mutation } from 'type-graphql'
-import { ObjectID } from 'mongodb'
+import { ObjectId } from 'mongoose'
 import CourseInput, { CourseUpdateInput } from '../Entity/course/course.input'
 import { CourseModel, Course } from '../Entity/course/course.entity'
 
@@ -40,7 +40,11 @@ class CourseResolver {
 
   @Mutation(() => Boolean)
   async deleteCourse(@Arg('id') id: string): Promise<boolean> {
+<<<<<<< HEAD
     const _id = new ObjectID(id)
+=======
+    const _id = new ObjectId(id)
+>>>>>>> 91db8a93c114d68ea428d386597a080a1af7899d
     const deletedCourse = await CourseModel.deleteOne({ _id })
     console.log(deletedCourse)
     return true

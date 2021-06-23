@@ -17,7 +17,7 @@ export const startserver = async (
   env: 'TEST' | 'DEV'
 ): Promise<ApolloServer> => {
   config()
-  if (env === 'DEV') connectDB()
+  if (env === 'DEV' || env !== 'TEST') connectDB()
   if (env === 'TEST') connectDBTEST()
   const schema = await buildSchema({
     resolvers: [CourseResolver, CommentResolver],
