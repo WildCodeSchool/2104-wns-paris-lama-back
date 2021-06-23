@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { ObjectId } from 'mongodb'
+import { ObjectId } from 'mongoose'
 import { InputType, Field, ID } from 'type-graphql'
 import { Comment } from './comment.entity'
 

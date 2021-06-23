@@ -1,7 +1,6 @@
 import { gql } from 'apollo-server-core'
 import mongoose from 'mongoose'
 import { ApolloServer } from 'apollo-server-express'
-import { MongoMemoryServer } from 'mongodb-memory-server'
 import { startserver } from '../server'
 
 const { createTestClient } = require('apollo-server-testing')
@@ -50,13 +49,8 @@ const GET_ALL_COURSES = gql`
 
 describe('course Resolver test suits', () => {
   let apollo: ApolloServer | null = null
-  //   let mongo: MongoMemoryServer = new MongoMemoryServer()
 
   beforeAll(async () => {
-    /// // uncomment lines below if you want an inmemory version
-    // mongo = new MongoMemoryServer()
-    // config.uri = await mongo.getUri()
-
     apollo = await startserver('TEST')
   })
 
