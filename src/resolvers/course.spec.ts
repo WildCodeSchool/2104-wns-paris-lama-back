@@ -49,18 +49,8 @@ const GET_ALL_COURSES = gql`
 
 describe('course Resolver test suits', () => {
   let apollo: ApolloServer | null = null
-<<<<<<< HEAD
-  //   let mongo: MongoMemoryServer = new MongoMemoryServer()
 
   beforeAll(async () => {
-    /// // uncomment lines below if you want an inmemory version
-    // mongo = new MongoMemoryServer()
-    // config.uri = await mongo.getUri()
-
-=======
-
-  beforeAll(async () => {
->>>>>>> 91db8a93c114d68ea428d386597a080a1af7899d
     apollo = await startserver('TEST')
   })
 
