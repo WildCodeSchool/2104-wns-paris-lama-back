@@ -7,25 +7,6 @@ on:
     branches: [dev, main]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: checks-directory
-        run: |
-          if [ -d "./.idea" ]; then echo "Forbidden Webstorm folder (.idea/) found ! Please, ignore in .gitignore"; exit 2; fi
-          if [ -d "./.vscode" ]; then echo "Forbidden VScode folder (.vscode) found ! Please, ignore in .gitignore"; exit 2; fi
-          if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file (.DS_Store) found ! Please, ignore in .gitignore"; exit 2; fi
-          if [ -d "./node_modules" ]; then echo "Forbidden external libs folder (node_modules/) found !"; exit 2; fi
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node_version }}
-      - run: |
-          npm i
-          npm run lint
-          npm run test
-          npm run build
   docker:
     runs-on: ubuntu-latest
     steps:
