@@ -56,15 +56,12 @@ describe('course Resolver test suits', () => {
 
   afterAll(async () => {
     if (apollo !== null) await apollo.stop()
-
-    // await mongo.stop()
     await mongoose.disconnect()
   })
 
   it('test', async () => {
     const { query } = createTestClient(apollo)
     const res = await query({ query: GET_ALL_COURSES })
-    console.log(res)
     expect(res.data).toBeDefined()
   })
   it('test create course', async () => {
