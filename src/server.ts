@@ -8,7 +8,7 @@ import 'reflect-metadata'
 import { ApolloServer } from 'apollo-server-express'
 
 import connectDB from './config/db.config'
-import connectDBTEST from './config/testDb.config'
+import { connectDBTEST } from './config/testDb.config'
 
 import CourseResolver from './resolvers/course.resolver'
 import CommentResolver from './resolvers/comment.resolver'
@@ -34,10 +34,12 @@ export const startserver = async (
   server.applyMiddleware({ app })
 
   app.listen({ port: 8080 })
-  console.log(
-    colors.bgBlack.white(
-      `Server ready 🦙🦙🦙 at http://localhost:8080${server.graphqlPath}`
+  if (env === 'DEV') {
+    console.log(
+      colors.bgBlack.white(
+        `Server ready 🦙🦙🦙 at http://localhost:8080${server.graphqlPath}`
+      )
     )
-  )
+  }
   return server
 }
