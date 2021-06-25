@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-core'
-import mongoose from 'mongoose'
 import { ApolloServer } from 'apollo-server-express'
 import { startserver } from '../server'
+import { closeDatabase } from '../config/testDb.config'
 
 const { createTestClient } = require('apollo-server-testing')
 
@@ -56,7 +56,7 @@ describe('course Resolver test suits', () => {
 
   afterAll(async () => {
     if (apollo !== null) await apollo.stop()
-    await mongoose.disconnect()
+    await closeDatabase()
   })
 
   it('test', async () => {
