@@ -11,7 +11,7 @@
     "start": "ts-node-dev --transpile-only --respawn  ./src/index.ts",
     "prod": "tsc && node ./built/src/index.js",
     "debug": "tsc && node --inspect ./built/src/index.js",
-    "test": "jest"
+    "test": "jest --runInBand --detectOpenHandles --forceExit"
   },
   "author": "",
   "license": "ISC",
@@ -37,7 +37,8 @@
     "mongoose": "5.10.18",
     "ncp": "^2.0.0",
     "reflect-metadata": "^0.1.13",
-    "type-graphql": "^1.1.1"
+    "type-graphql": "^1.1.1",
+    "mongodb-memory-server": "^6.9.6"
   },
   "devDependencies": {
     "@types/compression": "^1.7.0",
@@ -47,7 +48,6 @@
     "@types/graphql-depth-limit": "^1.1.2",
     "@types/http-errors": "^1.8.0",
     "@types/jest": "^26.0.23",
-    "@types/mongoose": "^5.11.97",
     "@types/node": "^14.14.42",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
@@ -60,8 +60,7 @@
     "graphql-depth-limit": "^1.1.0",
     "graphql-import": "^1.0.2",
     "graphql-import-node": "0.0.4",
-    "jest": "^27.0.1",
-    "mongodb-memory-server": "^6.9.6",
+    "jest": "^27.0.5",
     "nodemon": "^2.0.7",
     "prettier": "^2.1.2",
     "ts-jest": "^27.0.1",
