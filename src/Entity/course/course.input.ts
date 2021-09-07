@@ -1,4 +1,5 @@
 /* eslint-disable max-classes-per-file */
+import { ObjectId } from 'mongodb'
 import { InputType, Field, ID } from 'type-graphql'
 import { Course, Link } from './course.entity'
 
@@ -35,7 +36,7 @@ class CourseInput implements Partial<Course> {
 @InputType()
 export class CourseUpdateInput implements Partial<Course> {
   @Field(() => ID)
-  id!: string
+  readonly _id!: ObjectId
 
   @Field({ nullable: true })
   title?: string

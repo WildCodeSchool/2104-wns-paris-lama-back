@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 import mongoose from 'mongoose'
 import colors from 'colors'
@@ -17,7 +18,7 @@ export const connectDBTEST = async (): Promise<void> => {
     }
 
     await mongoose.connect(uri, mongooseOpts)
-  } catch (error) {
+  } catch (error: any) {
     console.log(colors.red(error))
     process.exit(1)
   }

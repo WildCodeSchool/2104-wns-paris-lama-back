@@ -1,11 +1,23 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
-import { Resolver, Query, Arg, Mutation } from 'type-graphql'
-import { ObjectId } from 'mongoose'
+import { Resolver, Query, Arg, Mutation, Field, ObjectType } from 'type-graphql'
 import CourseInput, { CourseUpdateInput } from '../Entity/course/course.input'
 import { CourseModel, Course } from '../Entity/course/course.entity'
+
+@ObjectType()
+export class IdeleteResponse {
+  @Field()
+  n!: number
+
+  @Field()
+  ok!: number
+
+  @Field()
+  deletedCount!: number
+}
 
 @Resolver()
 class CourseResolver {
@@ -23,7 +35,8 @@ class CourseResolver {
 
   @Mutation(() => Course)
   async createCourse(@Arg('data') data: CourseInput): Promise<Course> {
-    const course = (await CourseModel.create(data)).save()
+    const course = new CourseModel(data)
+    await course.save()
     return course
   }
 
@@ -31,19 +44,18 @@ class CourseResolver {
   async updateCourse(
     @Arg('data') data: CourseUpdateInput
   ): Promise<Course | null> {
-    const course = await CourseModel.findByIdAndUpdate(data.id, data, {
+    const course = await CourseModel.findByIdAndUpdate(data._id, data, {
       new: true,
     })
 
     return course
   }
 
-  @Mutation(() => Boolean)
-  async deleteCourse(@Arg('id') id: string): Promise<boolean> {
-    const _id = new ObjectId(id)
-    const deletedCourse = await CourseModel.deleteOne({ _id })
-    console.log(deletedCourse)
-    return true
+  @Mutation(() => IdeleteResponse)
+  async deleteCourse(@Arg('id') id: string): Promise<IdeleteResponse> {
+    const course = CourseModel.findById(id)
+    const deletedCourse = await course.deleteOne()
+    return deletedCourse
   }
 }
 export default CourseResolver

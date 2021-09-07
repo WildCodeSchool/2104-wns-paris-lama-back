@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { ObjectId } from 'mongoose'
+import { ObjectId } from 'mongodb'
 import { InputType, Field, ID } from 'type-graphql'
 import { Comment } from './comment.entity'
 
@@ -21,7 +21,7 @@ class CommentInput implements Partial<Comment> {
 @InputType()
 export class CommentUpdateInput implements Partial<Comment> {
   @Field(() => ID)
-  id!: string
+  readonly _id!: ObjectId
 
   @Field()
   name!: string

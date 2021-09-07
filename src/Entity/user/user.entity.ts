@@ -1,18 +1,16 @@
+/* eslint-disable import/no-cycle */
 import { ObjectType, Field, ID } from 'type-graphql'
-import { Prop, getModelForClass } from '@typegoose/typegoose'
+import { Prop, getModelForClass, Ref } from '@typegoose/typegoose'
+import { ObjectId } from 'mongodb'
 
 @ObjectType()
 export class User {
   @Field(() => ID)
-  id!: string
+  readonly _id!: ObjectId
 
   @Field()
   @Prop({ trim: true, required: true })
   name!: string
-
-  @Field()
-  @Prop({ trim: true, required: true })
-  lastName!: string
 
   @Field()
   @Prop({ trim: true, unique: true, required: true })

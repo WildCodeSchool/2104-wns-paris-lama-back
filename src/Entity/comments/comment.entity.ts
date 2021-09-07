@@ -6,6 +6,7 @@ import {
   setGlobalOptions,
   Severity,
 } from '@typegoose/typegoose'
+import { ObjectId } from 'mongodb'
 import { ObjectType, Field, ID } from 'type-graphql'
 import { Course } from '../course/course.entity'
 
@@ -13,7 +14,7 @@ setGlobalOptions({ options: { allowMixed: Severity.ALLOW } })
 @ObjectType()
 export class Comment {
   @Field(() => ID)
-  id!: string
+  readonly _id!: ObjectId
 
   @Field()
   @prop({ trim: true, required: true })
