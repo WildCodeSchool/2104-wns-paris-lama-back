@@ -8,7 +8,7 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint --fix . ",
-    "start": "ts-node-dev --transpile-only --respawn  ./src/index.ts",
+    "start": "ts-node-dev --exit-child --transpile-only --respawn  ./src/index.ts",
     "prod": "tsc && node ./built/src/index.js",
     "debug": "tsc && node --inspect ./built/src/index.js",
     "test": "jest --runInBand --detectOpenHandles --forceExit"

@@ -22,6 +22,7 @@ import { hash, compare } from 'bcryptjs'
 import { UserModel, User } from '../Entity/user/user.entity'
 import { IContext, isAuth } from '../middlewares/auth.middleware'
 import { createAccessToken, createRevreshToken } from '../utils/auth'
+import { UserInput, UserLoginInput } from '../Entity/user/user.input'
 
 @ObjectType()
 class LoginResponse {
@@ -63,20 +64,18 @@ export class UserResolver {
 
   @Mutation(() => RigesterResponse)
   async Register(
-    @Arg('name') name: string,
-    @Arg('email') email: string,
-    @Arg('password') password: string,
+    @Arg('data') data: UserInput,
     @Ctx() ctx: IContext
   ): Promise<RigesterResponse> {
-    const hashedPassword = await hash(password, 13)
-    const isUser = await UserModel.findOne({ email })
+    const hashedPassword = await hash(data.password, 13)
+    const isUser = await UserModel.findOne({ email: data.email })
     if (isUser) {
       throw new Error('email exist')
     }
     try {
       const user = await new UserModel({
-        name,
-        email,
+        name: data.name,
+        email: data.email,
         password: hashedPassword,
       })
       user.save()
@@ -129,18 +128,17 @@ export class UserResolver {
     }
   }
 
-  @Mutation(() => LoginResponse)
+  @Mutation(() => RigesterResponse)
   async Login(
-    @Arg('email') email: string,
-    @Arg('password') password: string,
+    @Arg('data') data: UserLoginInput,
     @Ctx() { res }: IContext
-  ): Promise<LoginResponse> {
-    const user = await UserModel.findOne({ email })
+  ): Promise<RigesterResponse> {
+    const user = await UserModel.findOne({ email: data.email })
     if (!user) {
       throw new Error('Could not find user')
     }
 
-    const verify = await compare(password, user.password)
+    const verify = await compare(data.password, user.password)
 
     if (!verify) {
       throw new Error('Bad password')
@@ -151,6 +149,8 @@ export class UserResolver {
 
     return {
       accessToken: createAccessToken(user),
+      Ok: true,
+      message: 'seccessfully created',
     }
   }
 }
