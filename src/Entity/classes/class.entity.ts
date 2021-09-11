@@ -9,7 +9,7 @@ import { ObjectType, Field, ID } from 'type-graphql'
 import { ObjectId } from 'mongodb'
 import { Course } from '../course/course.entity'
 import { User } from '../user/user.entity'
-import { Ref } from '../../types'
+import { RefType } from '../../types'
 
 setGlobalOptions({ options: { allowMixed: Severity.ALLOW } })
 @ObjectType()
@@ -25,9 +25,13 @@ export class ClassRoom {
   @prop({ trim: true, required: false })
   inviteSecret?: string
 
+  @Field()
+  @prop({ trim: true, required: true })
+  inviteSecretTmp!: number
+
   @Field(() => User)
   @prop({ required: false, ref: User })
-  owner!: Ref<User>
+  owner!: RefType<User>
 
   @Field()
   @prop({ required: false, default: 0 })
@@ -39,11 +43,11 @@ export class ClassRoom {
 
   @Field(() => [Course])
   @prop({ required: false })
-  public course?: Array<Ref<Course>>
+  public course?: Array<RefType<Course>>
 
   @Field(() => [User])
   @prop({ required: false, ref: User })
-  public members?: Ref<User>[]
+  public members?: RefType<User>[]
 
   @Field()
   createdAt!: Date

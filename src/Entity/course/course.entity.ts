@@ -10,6 +10,8 @@ import {
   setGlobalOptions,
 } from '@typegoose/typegoose'
 import { ObjectId } from 'mongodb'
+import { ClassRoom } from '../classes/class.entity'
+import { RefType } from '../../types'
 
 setGlobalOptions({ options: { allowMixed: Severity.ALLOW } })
 
@@ -22,10 +24,6 @@ export class Link {
   @Field()
   @prop({ required: true })
   url!: string
-
-  @Field()
-  @prop({ required: true })
-  img!: string
 }
 
 @ObjectType()
@@ -60,6 +58,14 @@ export class Course {
   @Field(() => Float)
   @prop({ required: false, default: 0 })
   localRate?: number
+
+  @Field()
+  @prop({ required: true })
+  img!: string
+
+  @Field(() => ClassRoom)
+  @prop({ required: true, ref: ClassRoom })
+  classRoom!: RefType<ClassRoom>
 
   @Field(() => Date)
   createdAt?: Date

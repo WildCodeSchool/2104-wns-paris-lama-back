@@ -1,11 +1,22 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
-import { Resolver, Query, Arg, Mutation, Field, ObjectType } from 'type-graphql'
+import {
+  Resolver,
+  Query,
+  Arg,
+  Mutation,
+  Field,
+  ObjectType,
+  FieldResolver,
+  Root,
+} from 'type-graphql'
 import CourseInput, { CourseUpdateInput } from '../Entity/course/course.input'
 import { CourseModel, Course } from '../Entity/course/course.entity'
+import { ClassRoom, ClassRoomModel } from '../Entity/classes/class.entity'
 
 @ObjectType()
 export class IdeleteResponse {
@@ -19,7 +30,7 @@ export class IdeleteResponse {
   deletedCount!: number
 }
 
-@Resolver()
+@Resolver(() => Course)
 class CourseResolver {
   @Query(() => [Course])
   async getCourses(): Promise<Course[]> {
@@ -27,6 +38,21 @@ class CourseResolver {
     if (!courses) return []
     return courses
   }
+
+  @FieldResolver()
+  async classRoom(@Root() course: Course): Promise<ClassRoom> {
+    return (await ClassRoomModel.findById(course.classRoom))!
+  }
+
+  // @FieldResolver()
+  // async course(@Root() classRoom: ClassRoom): Promise<Course> {
+  //   return (await CourseModel.findById(classRoom.course))!
+  // }
+
+  // @FieldResolver()
+  // async members(@Root() classRoom: ClassRoom): Promise<User> {
+  //   return (await UserModel.findById(classRoom.members))!
+  // }
 
   @Query(() => Course, { nullable: false })
   async getOneCourse(@Arg('id') id: string): Promise<Course | null> {
@@ -36,7 +62,12 @@ class CourseResolver {
   @Mutation(() => Course)
   async createCourse(@Arg('data') data: CourseInput): Promise<Course> {
     const course = new CourseModel(data)
-    await course.save()
+    console.log(course)
+    try {
+      await course.save()
+    } catch (error) {
+      console.log(error)
+    }
     return course
   }
 

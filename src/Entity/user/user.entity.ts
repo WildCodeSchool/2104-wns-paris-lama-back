@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import { ObjectType, Field, ID } from 'type-graphql'
-import { Prop, getModelForClass, Ref } from '@typegoose/typegoose'
+import { Prop, getModelForClass } from '@typegoose/typegoose'
 import { ObjectId } from 'mongodb'
 
 @ObjectType()

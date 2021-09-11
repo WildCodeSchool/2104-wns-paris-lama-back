@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable import/prefer-default-export */
-import { ObjectId } from 'mongodb'
 import { InputType, Field, ID } from 'type-graphql'
 import { User } from './user.entity'
 

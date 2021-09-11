@@ -25,6 +25,5 @@ function convertDocument(doc: Document) {
   const convertedDocument = doc.toObject()
   const DocumentClass = getClassForDocument(doc)!
   Object.setPrototypeOf(convertedDocument, DocumentClass.prototype)
-  console.log('dfsdf', convertedDocument)
   return convertedDocument
 }

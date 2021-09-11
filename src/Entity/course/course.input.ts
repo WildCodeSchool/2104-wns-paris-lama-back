@@ -10,9 +10,6 @@ class LinkInput implements Partial<Link> {
 
   @Field()
   url!: string
-
-  @Field()
-  img!: string
 }
 
 @InputType()
@@ -25,6 +22,12 @@ class CourseInput implements Partial<Course> {
 
   @Field()
   video!: string
+
+  @Field()
+  img!: string
+
+  @Field(() => String, { nullable: false })
+  classRoom!: ObjectId
 
   @Field({ nullable: true })
   description?: string
@@ -52,6 +55,9 @@ export class CourseUpdateInput implements Partial<Course> {
 
   @Field(() => [LinkInput], { nullable: true })
   link?: LinkInput[]
+
+  @Field()
+  img?: string
 }
 
 export default CourseInput

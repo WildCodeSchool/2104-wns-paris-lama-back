@@ -57,7 +57,7 @@ export class UserResolver {
   @Query(() => User, { nullable: true })
   @UseMiddleware(isAuth)
   async getUser(@Ctx() { payload }: IContext): Promise<User | null> {
-    const id = payload!.userId
+    const id = payload!.user._id
     const user = await UserModel.findById(id)
     return user
   }
@@ -108,7 +108,7 @@ export class UserResolver {
     if (!payload) {
       throw new Error('Not authenticated')
     }
-    const id = payload.userId
+    const id = payload.user._id
     try {
       const user = await UserModel.findById(id)
       if (!user) throw new Error('user NotFound')
@@ -137,6 +137,7 @@ export class UserResolver {
     if (!user) {
       throw new Error('Could not find user')
     }
+    console.log(user)
 
     const verify = await compare(data.password, user.password)
 
