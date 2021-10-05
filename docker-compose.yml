@@ -2,8 +2,6 @@ services:
   server:
     build: .
     command: sh -c "npm run build && npm run prod"
-    expose:
-      - 8080
     environment:
       - NODE_ENV=production
       - SERVER_PORT=8080
@@ -28,7 +26,7 @@ services:
       - client
     restart: always
     ports:
-      - 6969:80
+      - 8080:80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - web-client-build:/web-client-build
