@@ -8,6 +8,7 @@ type ClassRoom {
   course: [Course!]!
   createdAt: DateTime!
   inviteSecret: String!
+  inviteSecretTmp: Float!
   members: [User!]!
   name: String!
   owner: User!
@@ -58,8 +59,10 @@ input CommentUpdateInput {
 type Course {
   _id: ID!
   categories: String!
+  classRoom: ClassRoom!
   createdAt: DateTime!
   description: String!
+  img: String!
   link: [Link!]!
   localRate: Float!
   rating: Float!
@@ -70,7 +73,9 @@ type Course {
 
 input CourseInput {
   categories: String!
+  classRoom: String!
   description: String
+  img: String!
   link: [LinkInput!]
   title: String!
   video: String!
@@ -80,6 +85,7 @@ input CourseUpdateInput {
   _id: ID!
   categories: String
   description: String
+  img: String!
   link: [LinkInput!]
   title: String
   video: String
@@ -103,24 +109,18 @@ type IdeleteResponse {
 }
 
 type Link {
-  img: String!
   title: String!
   url: String!
 }
 
 input LinkInput {
-  img: String!
   title: String!
   url: String!
 }
 
-type LoginResponse {
-  accessToken: String!
-}
-
 type Mutation {
-  Login(email: String!, password: String!): LoginResponse!
-  Register(email: String!, name: String!, password: String!): RigesterResponse!
+  Login(data: UserLoginInput!): RigesterResponse!
+  Register(data: UserInput!): RigesterResponse!
   UpdateUser(email: String!, name: String!): ILAMA_Response!
   createClass(data: ClassRoomInput!): ClassRoom!
   createComment(data: CommentInput!): Comment!
@@ -128,6 +128,7 @@ type Mutation {
   deleteClass(id: String!): IdeleteResponse!
   deleteComment(id: String!): Boolean!
   deleteCourse(id: String!): IdeleteResponse!
+  joinClass(data: ClassRoomUpdateInput!, invite: String!, memberId: String!): ClassRoom!
   updateClass(data: ClassRoomUpdateInput!): ClassRoom!
   updateComment(data: CommentUpdateInput!): Comment!
   updateCourse(data: CourseUpdateInput!): Course!
@@ -156,4 +157,15 @@ type User {
   email: String!
   name: String!
   updatedAt: DateTime!
+}
+
+input UserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input UserLoginInput {
+  email: String!
+  password: String!
 }

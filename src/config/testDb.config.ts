@@ -18,8 +18,8 @@ export const connectDBTEST = async (): Promise<void> => {
     }
 
     await mongoose.connect(uri, mongooseOpts)
-  } catch (error: any) {
-    console.log(colors.red(error))
+  } catch (error) {
+    console.log(error)
     process.exit(1)
   }
 }

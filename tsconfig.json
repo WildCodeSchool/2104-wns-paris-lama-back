@@ -14,15 +14,20 @@
     "noImplicitAny": false,
     "declaration": true,
     "emitDecoratorMetadata": true,
+    "baseUrl": "src",
     "paths": {
-      "{rootPathPrefix}/*": ["./src/*"]
+      "@/*": ["./src/*"]
     },
-    "typeRoots": [
-            "./node_modules/@types/"
-          ],
+    "typeRoots": ["./node_modules/@types/"],
     "outDir": "dist",
     "experimentalDecorators": true
   },
   "include": ["src/**/*.ts", ".eslintrc.js"],
-  "exclude": ["node_modules", "mongo-init.js", "dist", "dist/**/*spec.ts", "data"]
+  "exclude": [
+    "node_modules",
+    "mongo-init.js",
+    "dist",
+    "dist/**/*spec.ts",
+    "data"
+  ]
 }

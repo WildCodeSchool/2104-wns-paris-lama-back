@@ -88,12 +88,12 @@ export class UserResolver {
         Ok: true,
         message: 'seccessfully created',
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err)
       return {
         accessToken: '',
         Ok: false,
-        message: err.message,
+        message: `${err}`,
       }
     }
   }
@@ -122,9 +122,9 @@ export class UserResolver {
       }
       await user.save()
       return { ok: true, message: 'update seccessfully', user }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err)
-      return { ok: false, message: err.message, user: {} as User }
+      return { ok: false, message: `${err}`, user: {} as User }
     }
   }
 

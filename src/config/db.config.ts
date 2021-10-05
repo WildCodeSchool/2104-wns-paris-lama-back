@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 import mongoose from 'mongoose'
@@ -17,8 +18,8 @@ const connectDB = async (): Promise<void> => {
     //   pass: 'example',
     // })
     console.log(colors.bgGreen.black('DB connected'))
-  } catch (error: any) {
-    console.log(colors.red(error))
+  } catch (error) {
+    console.log(error)
     process.exit(1)
   }
 }
