@@ -1,5 +1,6 @@
 services:
   server:
+    container_name: server_master
     build: .
     command: sh -c "npm run build && npm run prod"
     environment:
@@ -13,6 +14,7 @@ services:
     container_name: mongo
     image: mongo:4.4.9
   client:
+    container_name: client_master
     build: ../2104-wns-paris-lama-front/
     command: sh -c "npm run build"
     environment:
@@ -20,6 +22,7 @@ services:
     volumes:
       - web-client-build:/app/build
   nginx:
+    container_name: nginx_master
     image: nginx:1.21.3
     depends_on:
       - server
