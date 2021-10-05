@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  server:
+    container_name: server_staging
+    build: .
+    command: sh -c "npm run build && npm run prod"
+    environment:
+      - NODE_ENV=production
+      - SERVER_PORT=8080
+    depends_on:
+      - mongodb
+    volumes:
+      - ./src/:/app/src/
+  mongodb:
+    container_name: mongo
+    image: mongo:4.4.9
+  client:
+    container_name: client_staging
+    build: ../2104-wns-paris-lama-front/
+    command: sh -c "npm run build"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - web-client-build:/app/build
+  nginx:
+    container_name: nginx_staging
+    image: nginx:1.21.3
+    depends_on:
+      - server
+      - client
+    restart: always
+    ports:
+      - ${GATEWAY_PORT}:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - web-client-build:/web-client-build
+volumes:
+  web-client-build:
