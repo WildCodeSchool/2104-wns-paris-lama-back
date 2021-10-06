@@ -6,21 +6,12 @@ import { ObjectType, Field, Int, ID, Float } from 'type-graphql'
 import {
   prop,
   getModelForClass,
-<<<<<<< HEAD
   Severity,
   setGlobalOptions,
 } from '@typegoose/typegoose'
 import { ObjectId } from 'mongodb'
 import { ClassRoom } from '../classes/class.entity'
 import { RefType } from '../../types'
-=======
-  Index,
-  Severity,
-  setGlobalOptions,
-  Ref,
-} from '@typegoose/typegoose'
-import { Comment } from '../comments/comment.entity'
->>>>>>> origin/main
 
 setGlobalOptions({ options: { allowMixed: Severity.ALLOW } })
 
@@ -38,11 +29,7 @@ export class Link {
 @ObjectType()
 export class Course {
   @Field(() => ID)
-<<<<<<< HEAD
   readonly _id!: ObjectId
-=======
-  id!: string
->>>>>>> origin/main
 
   @Field()
   @prop({ trim: true, required: true })
