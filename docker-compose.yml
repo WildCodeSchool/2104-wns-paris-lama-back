@@ -11,7 +11,7 @@ services:
   mongodb:
     image: mongo:4.4.9
   client:
-    build: 2104-wns-paris-lama-front/
+    build: ../2104-wns-paris-lama-front/
     command: sh -c "npm run build"
     environment:
       - NODE_ENV=production
