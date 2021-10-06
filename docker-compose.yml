@@ -6,6 +6,8 @@ services:
     command: sh -c "npm run build && npm run prod"
     environment:
       - NODE_ENV=production
+      - ACCESS_TOKEN= ${ACCESS_TOKEN}
+      - REFRESH_TOKEN= ${REFRESH_TOKEN}
     depends_on:
       - mongodb
   mongodb:
