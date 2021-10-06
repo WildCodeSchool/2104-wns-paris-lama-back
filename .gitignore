@@ -8,3 +8,4 @@ coverage
 /coverage
 .vscode
 data
+.github/workflows/test.yml
