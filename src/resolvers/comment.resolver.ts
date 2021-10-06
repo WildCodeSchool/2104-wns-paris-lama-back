@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
 import { Mutation, Arg, Resolver, Query } from 'type-graphql'
@@ -29,12 +30,12 @@ class CommentResolver {
   ): Promise<Comment | null> {
     const course = await CourseModel.findById(data.course)
     if (!course) throw new Error('course not found')
-    const comment = await (await CommentModel.create(data)).save()
+    const comment = await new CommentModel(data)
+    await comment.save()
     const { length } = await CommentModel.find({ course: data.course })
     course.localRate = (course.localRate || 0) + +comment.rate
     course.rating = course.localRate / (length || 1)
     course.save()
-    console.log(course.rating, course.localRate, length, +comment.rate)
     return comment
   }
 
@@ -42,9 +43,13 @@ class CommentResolver {
   async updateComment(
     @Arg('data') data: CommentUpdateInput
   ): Promise<Comment | null> {
-    const updatedComment = await CommentModel.findByIdAndUpdate(data.id, data, {
-      new: true,
-    })
+    const updatedComment = await CommentModel.findByIdAndUpdate(
+      data._id,
+      data,
+      {
+        new: true,
+      }
+    )
     return updatedComment
   }
 

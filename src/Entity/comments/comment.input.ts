@@ -21,7 +21,7 @@ class CommentInput implements Partial<Comment> {
 @InputType()
 export class CommentUpdateInput implements Partial<Comment> {
   @Field(() => ID)
-  id!: string
+  readonly _id!: ObjectId
 
   @Field()
   name!: string

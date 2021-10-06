@@ -1,4 +1,5 @@
 /* eslint-disable max-classes-per-file */
+import { ObjectId } from 'mongodb'
 import { InputType, Field, ID } from 'type-graphql'
 import { Course, Link } from './course.entity'
 
@@ -22,7 +23,13 @@ class CourseInput implements Partial<Course> {
   @Field()
   video!: string
 
-  @Field({ nullable: false })
+  @Field()
+  img!: string
+
+  @Field(() => String, { nullable: false })
+  classRoom!: ObjectId
+
+  @Field({ nullable: true })
   description?: string
 
   @Field(() => [LinkInput], { nullable: true })
@@ -32,22 +39,25 @@ class CourseInput implements Partial<Course> {
 @InputType()
 export class CourseUpdateInput implements Partial<Course> {
   @Field(() => ID)
-  id!: string
+  readonly _id!: ObjectId
 
-  @Field({ nullable: false })
+  @Field({ nullable: true })
   title?: string
 
-  @Field({ nullable: false })
+  @Field({ nullable: true })
   categories?: string
 
-  @Field({ nullable: false })
+  @Field({ nullable: true })
   description?: string
 
-  @Field({ nullable: false })
+  @Field({ nullable: true })
   video?: string
 
   @Field(() => [LinkInput], { nullable: true })
   link?: LinkInput[]
+
+  @Field()
+  img?: string
 }
 
 export default CourseInput

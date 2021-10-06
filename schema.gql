@@ -3,10 +3,40 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type ClassRoom {
+  _id: ID!
+  course: [Course!]!
+  createdAt: DateTime!
+  inviteSecret: String!
+  inviteSecretTmp: Float!
+  members: [User!]!
+  name: String!
+  owner: User!
+  rate: Float!
+  state: String!
+  updatedAt: DateTime!
+}
+
+input ClassRoomInput {
+  course: [String!]
+  members: [String!]
+  name: String!
+  state: String = "PUBLIC"
+}
+
+input ClassRoomUpdateInput {
+  _id: ID!
+  course: [String!]
+  members: [String!]
+  name: String
+  rate: Float
+  state: String = "PUBLIC"
+}
+
 type Comment {
+  _id: ID!
   content: String!
   course: String!
-  id: ID!
   name: String!
   rate: String!
 }
@@ -19,17 +49,20 @@ input CommentInput {
 }
 
 input CommentUpdateInput {
+  _id: ID!
   content: String!
   course: String
-  id: ID!
   name: String!
   rate: String!
 }
 
 type Course {
+  _id: ID!
   categories: String!
+  classRoom: ClassRoom!
   createdAt: DateTime!
-  id: ID!
+  description: String!
+  img: String!
   link: [Link!]!
   localRate: Float!
   rating: Float!
@@ -40,14 +73,19 @@ type Course {
 
 input CourseInput {
   categories: String!
+  classRoom: String!
+  description: String
+  img: String!
   link: [LinkInput!]
   title: String!
   video: String!
 }
 
 input CourseUpdateInput {
+  _id: ID!
   categories: String
-  id: ID!
+  description: String
+  img: String!
   link: [LinkInput!]
   title: String
   video: String
@@ -57,6 +95,18 @@ input CourseUpdateInput {
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
 scalar DateTime
+
+type ILAMA_Response {
+  message: String!
+  ok: Boolean!
+  user: User!
+}
+
+type IdeleteResponse {
+  deletedCount: Float!
+  n: Float!
+  ok: Float!
+}
 
 type Link {
   title: String!
@@ -69,10 +119,21 @@ input LinkInput {
 }
 
 type Mutation {
+  Login(data: UserLoginInput!): RigesterResponse!
+  Register(data: UserInput!): RigesterResponse!
+  UpdateUser(email: String!, name: String!): ILAMA_Response!
+  createClass(data: ClassRoomInput!): ClassRoom!
   createComment(data: CommentInput!): Comment!
   createCourse(data: CourseInput!): Course!
+  deleteClass(id: String!): IdeleteResponse!
   deleteComment(id: String!): Boolean!
-  deleteCourse(id: String!): Boolean!
+  deleteCourse(id: String!): IdeleteResponse!
+  joinClass(
+    data: ClassRoomUpdateInput!
+    invite: String!
+    memberId: String!
+  ): ClassRoom!
+  updateClass(data: ClassRoomUpdateInput!): ClassRoom!
   updateComment(data: CommentUpdateInput!): Comment!
   updateCourse(data: CourseUpdateInput!): Course!
 }
@@ -80,6 +141,35 @@ type Mutation {
 type Query {
   getComments(course: String!): [Comment!]!
   getCourses: [Course!]!
+  getMyClasses: [ClassRoom!]!
+  getOneClassRoom(id: String!): ClassRoom!
   getOneComment(_id: String!): Comment!
   getOneCourse(id: String!): Course!
+  getPublicClasses: [ClassRoom!]!
+  getUser: User
+}
+
+type RigesterResponse {
+  Ok: Boolean!
+  accessToken: String!
+  message: String!
+}
+
+type User {
+  _id: ID!
+  createdAt: DateTime!
+  email: String!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input UserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input UserLoginInput {
+  email: String!
+  password: String!
 }
