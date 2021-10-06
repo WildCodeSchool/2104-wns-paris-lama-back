@@ -16,7 +16,7 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-      - web-client-build:/app/build
+      - web-client-build:/client/build
   nginx:
     image: nginx:1.21.3
     depends_on:

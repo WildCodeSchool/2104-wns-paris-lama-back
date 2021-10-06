@@ -6,8 +6,8 @@ import colors from 'colors'
 
 const connectDB = async (): Promise<void> => {
   try {
-    const uri = process.env.DB || 'mongodb://mongo:27017'
-    const connect = await mongoose.connect(uri, {
+    const uri = process.env.DB || 'mongodb://mongodb:27017'
+    await mongoose.connect(uri, {
       useCreateIndex: true,
       useUnifiedTopology: true,
       useNewUrlParser: true,
