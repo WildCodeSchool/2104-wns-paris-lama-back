@@ -12,6 +12,15 @@ class ClassRoomInput implements Partial<ClassRoom> {
   course?: Array<ObjectId>
 
   @Field(() => [String], { nullable: true })
+  tags!: Array<string>
+
+  @Field()
+  desc!: string
+
+  @Field()
+  image!: string
+
+  @Field(() => [String], { nullable: true })
   members?: Array<ObjectId>
 
   @Field({ defaultValue: 'PUBLIC' })
@@ -25,6 +34,15 @@ export class ClassRoomUpdateInput implements Partial<ClassRoom> {
 
   @Field({ nullable: true })
   name?: string
+
+  @Field(() => [String], { nullable: true })
+  tags!: Array<string>
+
+  @Field()
+  desc!: string
+
+  @Field()
+  image!: string
 
   @Field({ nullable: true })
   rate?: number

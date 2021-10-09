@@ -21,12 +21,24 @@ export class ClassRoom {
   @prop({ trim: true, required: true })
   name!: string
 
+  @Field(() => [String])
+  @prop({ required: false })
+  tags!: Array<string>
+
+  @Field()
+  @prop({ trim: true, required: true })
+  desc!: string
+
+  @Field()
+  @prop({ trim: true, required: true })
+  image!: string
+
   @Field()
   @prop({ trim: true, required: false })
   inviteSecret?: string
 
   @Field()
-  @prop({ trim: true, required: true })
+  @prop({ required: true })
   inviteSecretTmp!: number
 
   @Field(() => User)

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -14,6 +15,7 @@ import {
   FieldResolver,
   Root,
 } from 'type-graphql'
+import { Converter } from 'showdown'
 import CourseInput, { CourseUpdateInput } from '../Entity/course/course.input'
 import { CourseModel, Course } from '../Entity/course/course.entity'
 import { ClassRoom, ClassRoomModel } from '../Entity/classes/class.entity'
@@ -61,6 +63,11 @@ class CourseResolver {
 
   @Mutation(() => Course)
   async createCourse(@Arg('data') data: CourseInput): Promise<Course> {
+    const converter = new Converter()
+    data.steps.forEach((step) => {
+      step.contentHtml = converter.makeHtml(step.contentMd)
+    })
+    console.log(data.steps)
     const course = new CourseModel(data)
     console.log(course)
     try {
