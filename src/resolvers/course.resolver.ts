@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 /* eslint-disable import/no-named-as-default */
-=======
->>>>>>> main
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -18,10 +15,7 @@ import {
   FieldResolver,
   Root,
 } from 'type-graphql'
-<<<<<<< HEAD
 import { Converter } from 'showdown'
-=======
->>>>>>> main
 import CourseInput, { CourseUpdateInput } from '../Entity/course/course.input'
 import { CourseModel, Course } from '../Entity/course/course.entity'
 import { ClassRoom, ClassRoomModel } from '../Entity/classes/class.entity'
