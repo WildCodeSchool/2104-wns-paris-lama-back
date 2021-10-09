@@ -16,14 +16,30 @@ import { RefType } from '../../types'
 setGlobalOptions({ options: { allowMixed: Severity.ALLOW } })
 
 @ObjectType()
-export class Link {
+export class Steps {
   @Field()
   @prop({ trim: true, required: true })
   title!: string
 
+  @Field({ nullable: true })
+  @prop({ required: false })
+  next?: number
+
+  @Field({ nullable: false })
+  @prop({ required: true })
+  step!: number
+
+  @Field({ nullable: true })
+  @prop({ required: false })
+  prev?: number
+
   @Field()
   @prop({ required: true })
-  url!: string
+  contentMd!: string
+
+  @Field()
+  @prop({ required: false })
+  contentHtml?: string
 }
 
 @ObjectType()
@@ -35,21 +51,9 @@ export class Course {
   @prop({ trim: true, required: true })
   title!: string
 
-  @Field()
+  @Field(() => [Steps])
   @prop({ required: true })
-  categories!: string
-
-  @Field()
-  @prop({ required: false })
-  description?: string
-
-  @Field()
-  @prop({ required: true })
-  video!: string
-
-  @Field(() => [Link])
-  @prop({ required: false })
-  link?: Array<Link>
+  steps!: Array<Steps>
 
   @Field(() => Float)
   @prop({ required: false, default: 0 })
@@ -58,10 +62,6 @@ export class Course {
   @Field(() => Float)
   @prop({ required: false, default: 0 })
   localRate?: number
-
-  @Field()
-  @prop({ required: true })
-  img!: string
 
   @Field(() => ClassRoom)
   @prop({ required: true, ref: ClassRoom })

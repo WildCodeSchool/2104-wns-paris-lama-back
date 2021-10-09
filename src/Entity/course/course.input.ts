@@ -1,39 +1,39 @@
 /* eslint-disable max-classes-per-file */
 import { ObjectId } from 'mongodb'
 import { InputType, Field, ID } from 'type-graphql'
-import { Course, Link } from './course.entity'
+import { Course } from './course.entity'
 
 @InputType()
-class LinkInput implements Partial<Link> {
+export class StepsInput {
   @Field()
   title!: string
 
+  @Field({ nullable: true })
+  next?: number
+
+  @Field({ nullable: false })
+  step!: number
+
+  @Field({ nullable: true })
+  prev?: number
+
   @Field()
-  url!: string
+  contentMd!: string
+
+  @Field()
+  contentHtml?: string
 }
 
 @InputType()
-class CourseInput implements Partial<Course> {
+export class CourseInput {
   @Field()
   title!: string
 
-  @Field()
-  categories!: string
-
-  @Field()
-  video!: string
-
-  @Field()
-  img!: string
+  @Field(() => [StepsInput])
+  steps!: Array<StepsInput>
 
   @Field(() => String, { nullable: false })
   classRoom!: ObjectId
-
-  @Field({ nullable: true })
-  description?: string
-
-  @Field(() => [LinkInput], { nullable: true })
-  link?: LinkInput[]
 }
 
 @InputType()
@@ -41,23 +41,11 @@ export class CourseUpdateInput implements Partial<Course> {
   @Field(() => ID)
   readonly _id!: ObjectId
 
-  @Field({ nullable: true })
-  title?: string
-
-  @Field({ nullable: true })
-  categories?: string
-
-  @Field({ nullable: true })
-  description?: string
-
-  @Field({ nullable: true })
-  video?: string
-
-  @Field(() => [LinkInput], { nullable: true })
-  link?: LinkInput[]
-
   @Field()
-  img?: string
+  title!: string
+
+  @Field(() => [StepsInput])
+  steps!: Array<StepsInput>
 }
 
 export default CourseInput

@@ -4,12 +4,14 @@ services:
     ports:
       - 8080:8080
     command: npm start
+    environment:
+      - ACCESS_TOKEN=GHJFSJDFGSJHD
+      - REFRESH_TOKEN=HGSFDKJGHSDKFJGHDFLKKLF
     volumes:
       - ./src/:/app/src/
     links:
       - mongodb
   mongodb:
-    container_name: mongo
     image: mongo
     volumes:
       - ./data:/data/db
