@@ -9,7 +9,7 @@ export class User {
   readonly _id!: ObjectId
 
   @Field()
-  @Prop({ trim: true, required: true })
+  @Prop({ trim: true, unique: true, required: true })
   name!: string
 
   @Field()

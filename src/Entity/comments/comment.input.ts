@@ -6,16 +6,19 @@ import { Comment } from './comment.entity'
 @InputType()
 class CommentInput implements Partial<Comment> {
   @Field()
-  name!: string
-
-  @Field()
   content!: string
 
   @Field()
-  rate!: string
+  step!: string
 
   @Field(() => String, { nullable: true })
+  parent?: ObjectId
+
+  @Field(() => String, { nullable: false })
   course!: ObjectId
+
+  @Field(() => String, { nullable: false })
+  classRoom!: ObjectId
 }
 
 @InputType()
@@ -24,16 +27,7 @@ export class CommentUpdateInput implements Partial<Comment> {
   readonly _id!: ObjectId
 
   @Field()
-  name!: string
-
-  @Field()
   content!: string
-
-  @Field()
-  rate!: string
-
-  @Field(() => String, { nullable: true })
-  course!: ObjectId
 }
 
 export default CommentInput

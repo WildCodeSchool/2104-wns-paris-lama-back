@@ -10,6 +10,7 @@ import {
   setGlobalOptions,
 } from '@typegoose/typegoose'
 import { ObjectId } from 'mongodb'
+import { Comment } from 'Entity/comments/comment.entity'
 import { ClassRoom } from '../classes/class.entity'
 import { RefType } from '../../types'
 

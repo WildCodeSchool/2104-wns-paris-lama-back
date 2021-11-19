@@ -18,7 +18,6 @@ import {
 } from 'type-graphql'
 import { v4 } from 'uuid'
 import { ObjectId } from 'mongodb'
-import { Types } from 'mongoose'
 import { ClassRoom, ClassRoomModel } from '../Entity/classes/class.entity'
 import ClassInput, { ClassRoomUpdateInput } from '../Entity/classes/class.input'
 import { IContext, isAuth } from '../middlewares/auth.middleware'
@@ -40,10 +39,24 @@ class ClassRoomResolver {
     return classRooms
   }
 
+  @Query(() => Boolean)
+  @UseMiddleware(isAuth)
+  async isJoined(@Ctx() ctx: IContext,
+  @Arg('id') id: string): Promise<boolean> {
+
+    const classRoom =await  ClassRoomModel.findById(id)
+    
+    if(!classRoom) throw new Error("NotFound");
+    if(classRoom.owner?.toString() === ctx.payload!.user._id.toString()) return true
+    if(classRoom.state === 'PUBLIC') return true
+    
+    return classRoom.members?.includes(ctx.payload!.user._id) || false
+    
+  }
+
   @Query(() => [ClassRoom])
-  async getPublicClasses(): Promise<ClassRoom[]> {
+  async getClasses(): Promise<ClassRoom[]> {
     const classRooms = ClassRoomModel.find({
-      state: 'PUBLIC',
     })
     if (!classRooms) return []
     return classRooms
@@ -62,6 +75,25 @@ class ClassRoomResolver {
       (classRoom.state === 'PRIVATE' && 
       classRoom.members!.filter((m) => m == user._id as unknown as RefType<User>).length === 0) &&
       classRoom.owner as unknown as ObjectId != user._id) {throw new Error('Promision denied')}
+
+    return classRoom
+  }
+
+  @Query(() => ClassRoom)
+  @UseMiddleware(isAuth)
+  async getFilteredClass(
+    @Ctx() ctx: IContext,
+    @Arg('invite') invite: string
+  ): Promise<ClassRoom> {
+    const { user } = ctx.payload!
+    const classRoom = (await ClassRoomModel.find({ inviteSecret:invite })).length ? await ClassRoomModel.find({ inviteSecret:invite })[0] : null
+    if (!classRoom) throw new Error('Not Valid invite')
+    if(
+      (classRoom.state === 'PRIVATE' && 
+      classRoom.members!.filter((m) => m == user._id as unknown as RefType<User>).length === 0) &&
+      classRoom.owner as unknown as ObjectId != user._id){
+        await this.joinClass(classRoom,invite,user._id.toString())
+      }
 
     return classRoom
   }

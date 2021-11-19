@@ -14,8 +14,11 @@ import {
   ObjectType,
   FieldResolver,
   Root,
+  UseMiddleware,
+  Ctx,
 } from 'type-graphql'
 import { Converter } from 'showdown'
+import { IContext, isAuth } from '../middlewares/auth.middleware'
 import CourseInput, { CourseUpdateInput } from '../Entity/course/course.input'
 import { CourseModel, Course } from '../Entity/course/course.entity'
 import { ClassRoom, ClassRoomModel } from '../Entity/classes/class.entity'
@@ -62,7 +65,21 @@ class CourseResolver {
   }
 
   @Mutation(() => Course)
-  async createCourse(@Arg('data') data: CourseInput): Promise<Course> {
+  @UseMiddleware(isAuth)
+  async createCourse(
+    @Ctx() ctx: IContext,
+    @Arg('data') data: CourseInput
+  ): Promise<Course> {
+    const { user } = ctx.payload!
+    const classRoom = await ClassRoomModel.findById(data.classRoom)
+    console.log(classRoom?.owner, user._id)
+    console.log(typeof user._id)
+    console.log(typeof classRoom?.owner?.toString())
+    console.log(classRoom, user)
+    if (user._id.toString() !== classRoom?.owner?.toString()) {
+      throw new Error('Promision denied')
+    }
+
     const converter = new Converter()
     data.steps.forEach((step) => {
       step.contentHtml = converter.makeHtml(step.contentMd)
