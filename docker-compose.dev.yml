@@ -1,4 +1,5 @@
 services:
+<<<<<<< HEAD
   server:
     build: .
     ports:
@@ -21,3 +22,24 @@ services:
       - 3000:3000
     volumes:
       - ../2104-wns-paris-lama-front/src/:/client/src/
+=======
+    server:
+            build: .
+            ports:
+                - 8080:8080
+            command: npm start
+            volumes:
+                - ./src/:/app/src/
+    mongodb:
+            image: mongo
+            ports:
+              - 27017:27017
+            volumes:
+                - ./data:/data/db
+    client:
+            build: ../2104-wns-paris-lama-front/
+            ports:
+                - 3001:3000
+            volumes:
+                - ../2104-wns-paris-lama-front/src/:/client/src/
+>>>>>>> dev

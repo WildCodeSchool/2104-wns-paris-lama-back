@@ -1,6 +1,7 @@
-# 2104-wns-paris-lama-back 102
-## Quick start 
+# 2104-wns-paris-lama-back
 
-- install docker & docker-compose 
-- clone the repo ``` https://github.com/WildCodeSchool/2104-wns-paris-lama-back/ ```
-- run ``` docker-compose -f docker-compose.dev.yml up --build ```
+## Quick start
+
+- install docker & docker-compose
+- clone the repo `https://github.com/WildCodeSchool/2104-wns-paris-lama-back/`
+- run `docker-compose -f docker-compose.dev.yml up --build`
