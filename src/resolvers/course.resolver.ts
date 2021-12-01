@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/naming-convention */
