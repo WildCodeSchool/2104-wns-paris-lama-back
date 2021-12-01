@@ -69,8 +69,14 @@ export class UserResolver {
   ): Promise<RigesterResponse> {
     const hashedPassword = await hash(data.password, 13)
     const isUser = await UserModel.findOne({ email: data.email })
+    const isName = await UserModel.findOne({ name: data.name })
+
     if (isUser) {
       throw new Error('email exist')
+    }
+
+    if (isName) {
+      throw new Error('username exist')
     }
     try {
       const user = await new UserModel({
@@ -112,13 +118,19 @@ export class UserResolver {
     try {
       const user = await UserModel.findById(id)
       if (!user) throw new Error('user NotFound')
-      user.name = name || user.name
       if (email) {
         const isEmailExist = await UserModel.findOne({ email })
         if (isEmailExist) {
-          throw new Error('Email is exist')
+          throw new Error('Email already exist')
         }
         user.email = email
+      }
+      if (name) {
+        const isNameExist = await UserModel.findOne({ name })
+        if (isNameExist) {
+          throw new Error('username already exist')
+        }
+        user.name = name
       }
       await user.save()
       return { ok: true, message: 'update seccessfully', user }

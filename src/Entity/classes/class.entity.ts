@@ -42,7 +42,7 @@ export class ClassRoom {
   inviteSecretTmp!: number
 
   @Field(() => User)
-  @prop({ required: false, ref: User })
+  @prop({ required: true, ref: User })
   owner!: RefType<User>
 
   @Field()

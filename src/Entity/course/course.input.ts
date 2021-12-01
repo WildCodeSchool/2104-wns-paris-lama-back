@@ -25,7 +25,7 @@ export class StepsInput {
 }
 
 @InputType()
-export class CourseInput {
+class CourseInput {
   @Field()
   title!: string
 

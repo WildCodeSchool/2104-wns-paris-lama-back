@@ -36,18 +36,18 @@ export class ClassRoomUpdateInput implements Partial<ClassRoom> {
   name?: string
 
   @Field(() => [String], { nullable: true })
-  tags!: Array<string>
+  tags?: Array<string>
 
-  @Field()
-  desc!: string
+  @Field({ nullable: true })
+  desc?: string
 
-  @Field()
-  image!: string
+  @Field({ nullable: true })
+  image?: string
 
   @Field({ nullable: true })
   rate?: number
 
-  @Field({ defaultValue: 'PUBLIC' })
+  @Field({ defaultValue: 'PUBLIC', nullable: true })
   state?: 'PUBLIC' | 'PRIVATE'
 
   @Field(() => [String], { nullable: true })
