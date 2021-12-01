@@ -197,8 +197,13 @@ class ClassRoomResolver {
   @Mutation(() => IdeleteResponse)
   @UseMiddleware(isAuth)
   async deleteClass(@Arg('id') id: string): Promise<IdeleteResponse> {
-    await ClassRoomModel.deleteOne({ id })
     const classRoom = ClassRoomModel.findById(id)
+    const corses = await CourseModel.find({ classRoom: id })
+    const ids = corses.map(el => el.id)
+    await CourseModel.deleteMany({
+    _id: { $in: ids },
+    })
+    
     const deletedClass = await classRoom.deleteOne()
     return deletedClass
   }

@@ -8,7 +8,7 @@ const mongod = new MongoMemoryServer()
 
 export const connectDBTEST = async (): Promise<void> => {
   try {
-    const uri = await mongod.getUri()
+    const uri = 'mongodb://mongodb:27017'
 
     const mongooseOpts = {
       useNewUrlParser: true,

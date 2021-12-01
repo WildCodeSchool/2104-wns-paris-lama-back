@@ -72,10 +72,6 @@ class CourseResolver {
   ): Promise<Course> {
     const { user } = ctx.payload!
     const classRoom = await ClassRoomModel.findById(data.classRoom)
-    console.log(classRoom?.owner, user._id)
-    console.log(typeof user._id)
-    console.log(typeof classRoom?.owner?.toString())
-    console.log(classRoom, user)
     if (user._id.toString() !== classRoom?.owner?.toString()) {
       throw new Error('Promision denied')
     }
@@ -106,11 +102,16 @@ class CourseResolver {
     return course
   }
 
-  @Mutation(() => IdeleteResponse)
-  async deleteCourse(@Arg('id') id: string): Promise<IdeleteResponse> {
-    const course = CourseModel.findById(id)
-    const deletedCourse = await course.deleteOne()
-    return deletedCourse
+  @Mutation(() => Boolean)
+  async deleteCourse(@Arg('id') id: string): Promise<boolean> {
+    const course = await CourseModel.findById(id)
+    console.log('course', course)
+    if (course) {
+      const deletedCourse = await course.deleteOne()
+      console.log(deletedCourse)
+      return true
+    }
+    return false
   }
 }
 export default CourseResolver
