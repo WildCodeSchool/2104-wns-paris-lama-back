@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:14.18.1
 
 ARG ACCESS_TOKEN
 ARG REFRESH_TOKEN
