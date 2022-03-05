@@ -13,7 +13,7 @@ services:
   mongodb:
     image: mongo:4.4.9
   client:
-    build: ../${BRANCH_NAME}_client/
+    build: ../client/
     command: sh -c "npm run build"
     environment:
       - NODE_ENV=production
